@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔥 CompraYa - Mercado Local</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* FONDO 1: Gradiente morado/azul */
+            background: linear-gradient(135deg, #e8e0f0 0%, #d4d9f0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .container {
+            /* 🔥 NUEVO: Fondo blanco con transparencia (efecto vidrio) */
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            max-width: 900px;
+            width: 100%;
+            border-radius: 30px;
+            padding: 50px 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
+        h1 {
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+        }
+        
+        .subtitulo {
+            font-size: 1.3em;
+            color: #6b7280;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .subtitulo span {
+            background: #f3f4f6;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-size: 0.8em;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .descripcion {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 35px;
+            border-radius: 20px;
+            margin: 25px 0 35px 0;
+            font-size: 1.1em;
+            line-height: 1.7;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.25);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cerrar {
+            position: absolute;
+            top: 12px;
+            right: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            font-size: 1.5em;
+            font-weight: bold;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            line-height: 1;
+        }
+        
+        .btn-cerrar:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: rotate(90deg) scale(1.1);
+        }
+        
+        .descripcion.oculto {
+            display: none;
+        }
+        
+        .descripcion strong {
+            font-size: 1.2em;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .descripcion .etiquetas {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            flex-wrap: wrap;
+        }
+        
+        .descripcion .etiquetas span {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 18px;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .categorias-titulo {
+            color: #374151;
+            font-size: 1.2em;
+            margin-bottom: 18px;
+            font-weight: 600;
+        }
+        
+        .categorias {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 15px;
+            margin: 0 0 35px 0;
+        }
+        
+        .categoria {
+            background: #f9fafb;
+            padding: 18px 10px;
+            border-radius: 16px;
+            font-weight: 600;
+            color: #374151;
+            transition: all 0.3s ease;
+            cursor: default;
+            border: 2px solid transparent;
+        }
+        
+        .categoria:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+        
+        .categoria .icono {
+            font-size: 2.2em;
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .estadisticas {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .estadistica {
+            background: #f9fafb;
+            padding: 15px 30px;
+            border-radius: 16px;
+            min-width: 100px;
+            transition: all 0.3s;
+        }
+        
+        .estadistica:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .estadistica .numero {
+            font-size: 2em;
+            font-weight: 800;
+            color: #667eea;
+        }
+        
+        .estadistica:hover .numero {
+            color: white;
+        }
+        
+        .estadistica .label {
+            color: #6b7280;
+            font-size: 0.85em;
+            margin-top: 3px;
+        }
+        
+        .estadistica:hover .label {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .cta {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 14px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin: 5px 0 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .cta:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 12px 35px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 2px solid rgba(0, 0, 0, 0.06);
+            flex-wrap: wrap;
+        }
+        
+        .footer a {
+            color: #6b7280;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 50px;
+            transition: all 0.3s;
+            font-size: 0.95em;
+        }
+        
+        .footer a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px 18px;
+                background: rgba(255, 255, 255, 0.92);
+            }
+            h1 { font-size: 2.4em; }
+            .subtitulo { font-size: 1em; }
+            .descripcion { padding: 20px; font-size: 1em; }
+            .categorias { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .categoria { padding: 14px 8px; font-size: 0.9em; }
+            .estadisticas { gap: 15px; }
+            .estadistica { padding: 12px 18px; min-width: 70px; }
+            .estadistica .numero { font-size: 1.5em; }
+            .footer { gap: 10px; }
+            .footer a { padding: 6px 12px; font-size: 0.85em; }
+            .btn-cerrar {
+                top: 8px;
+                right: 12px;
+                width: 30px;
+                height: 30px;
+                font-size: 1.2em;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .categorias { grid-template-columns: repeat(2, 1fr); }
+            .container { padding: 18px 12px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <h1>🛍️ CompraYa</h1>
+        <p class="subtitulo">
+            Todo lo local, en un solo lugar
+            <span>📍 Chanchamayo</span>
+        </p>
+        
+        <div class="descripcion" id="cuadroInfo">
+            <button class="btn-cerrar" onclick="cerrarCuadro()" aria-label="Cerrar">✕</button>
+            
+            <strong>🔥 Conectamos emprendedores con su comunidad</strong>
+            Descubre productos y servicios únicos de tu zona. 
+            Compara, elige y coordina directamente con cada negocio local.
+            <div class="etiquetas">
+                <span>✅ Sin comisiones ocultas</span>
+                <span>💚 Apoya lo local</span>
+                <span>📦 Coordina tu entrega</span>
+            </div>
+        </div>
+        
+        <p class="categorias-titulo">📂 ¿Qué buscas hoy?</p>
+        <div class="categorias">
+            <div class="categoria"><span class="icono">☕</span> Alimentos</div>
+            <div class="categoria"><span class="icono">👗</span> Moda</div>
+            <div class="categoria"><span class="icono">🏠</span> Hogar</div>
+            <div class="categoria"><span class="icono">💻</span> Tecnología</div>
+            <div class="categoria"><span class="icono">🎨</span> Arte</div>
+            <div class="categoria"><span class="icono">🔧</span> Servicios</div>
+        </div>
+        
+        <div class="estadisticas">
+            <div class="estadistica">
+                <div class="numero">15+</div>
+                <div class="label">Emprendedores</div>
+            </div>
+            <div class="estadistica">
+                <div class="numero">50+</div>
+                <div class="label">Productos</div>
+            </div>
+            <div class="estadistica">
+                <div class="numero">128</div>
+                <div class="label">Vistas este mes</div>
+            </div>
+            <div class="estadistica">
+                <div class="numero">⭐ 4.8</div>
+                <div class="label">Calificación</div>
+            </div>
+        </div>
+        
+        <a href="https://workspace-cell.github.io/CompraYa/" class="cta">🚀 Explorar ahora</a>
+        
+        <div class="footer">
+            <a href="#">📱 Inicio</a>
+            <a href="#">🔍 Buscar</a>
+            <a href="#">📋 Solicitudes</a>
+            <a href="#">👤 Perfil</a>
+            <a href="#">ℹ️ Acerca de</a>
+        </div>
+        
+    </div>
+    
+    <script>
+        function cerrarCuadro() {
+            const cuadro = document.getElementById('cuadroInfo');
+            cuadro.classList.add('oculto');
+        }
+    </script>
+    
+</body>
+</html>
